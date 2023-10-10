@@ -1,0 +1,2296 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[56],{
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var babel_runtime_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! babel-runtime/core-js/object/assign */ "./node_modules/babel-runtime/core-js/object/assign.js");
+/* harmony import */ var babel_runtime_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(babel_runtime_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+/* harmony import */ var babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_time__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utils/time */ "./src/utils/time.js");
+/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Pagination */ "./src/components/Pagination/index.vue");
+/* harmony import */ var _api_papers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/api/papers */ "./src/api/papers.js");
+/* harmony import */ var _api_questionss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/api/questionss */ "./src/api/questionss.js");
+/* harmony import */ var _api_questions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/api/questions */ "./src/api/questions.js");
+/* harmony import */ var _directive_waves__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/directive/waves */ "./src/directive/waves/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  directives: {
+    waves: _directive_waves__WEBPACK_IMPORTED_MODULE_7__["default"]
+  },
+  data: function data() {
+    return {
+      questionRules: {
+        count0: { required: true, message: '请填写选择题的数量', trigger: 'blur' },
+        count1: { required: true, message: '请填写判断题的数量', trigger: 'blur' }
+      },
+      question_type: ['选择题', '判断题'],
+      isEdit: false,
+      isBtnAddLoadingShow: false,
+      isBtnQuesLoadingShow: false,
+      list: [],
+      isAddQuestionsShow: false,
+      isAddQuestionsRandomlyShow: false,
+      isListLoadingShow: false,
+      multipleSelection: [],
+      paperOptions: [],
+      questionsList: [],
+
+      selectedQuestions: [],
+      tempSelectedQuestions: [],
+
+      tempFilterOptions: {
+        question_bank_type: undefined
+      },
+      // 考题总数
+      total: 0,
+      // 请求考题列表信息参数
+      paramsGetQuestions: {
+        project_id: undefined,
+        paper_id: undefined,
+        // page: 1,
+        // limit: 20,
+        question_bank_type_id: undefined
+      },
+      questionTypeOptions: [{ id: 0, name: '选择题' }, { id: 1, name: '判断题' }],
+      paramsGetQuestionss: {
+        project_id: undefined,
+        question_bank_type_id: undefined,
+        page: 1,
+        limit: 5,
+        question_type_id: undefined
+      },
+
+      question_bank_type_id: undefined,
+      formdataQuestion: {
+        project_id: undefined,
+        paper_id: undefined,
+        count0: undefined,
+        count1: undefined
+      }
+    };
+  },
+
+
+  computed: babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_1___default()({}, Object(vuex__WEBPACK_IMPORTED_MODULE_8__["mapGetters"])(['selected_project_id'])),
+  created: function created() {
+    this.getPapersList();
+  },
+
+  methods: {
+    // closeDialogQuestions() {
+    //   this.list
+    // },
+
+    questionSelect: function questionSelect(select, row) {
+      var _this = this;
+
+      if (select.includes(row)) {
+        this.tempSelectedQuestions.push(row);
+      } else {
+        this.tempSelectedQuestions.forEach(function (item, index) {
+          if (item.questions_id === row.questions_id) {
+            _this.tempSelectedQuestions.splice(index, 1);
+          }
+        });
+      }
+    },
+    parperChange: function parperChange(id) {
+      var _this2 = this;
+
+      this.paramsGetQuestions.paper_id = id;
+      this.questionsList = [];
+      this.paperOptions.forEach(function (item) {
+        if (item.paper_id === id) {
+          _this2.paramsGetQuestionss.question_bank_type_id = item.question_bank_type_id;
+          _this2.getQuestionssList();
+        }
+      });
+      this.getQuestions();
+    },
+    addPaperManually: function addPaperManually() {
+      this.isAddQuestionsShow = true;
+      this.getQuestionssList();
+    },
+    addPaperRandomly: function addPaperRandomly() {
+      this.isAddQuestionsRandomlyShow = true;
+    },
+    questionTypeChange: function questionTypeChange(val) {
+      if (val === '') {
+        this.paramsGetQuestionss.question_type_id = undefined;
+      } else {
+        this.paramsGetQuestionss.question_type_id = val;
+      }
+      this.getQuestionssList();
+    },
+    getQuestionssList: function getQuestionssList() {
+      var _this3 = this;
+
+      this.paramsGetQuestionss.project_id = this.selected_project_id;
+      Object(_api_questionss__WEBPACK_IMPORTED_MODULE_5__["getQuestionssList"])(this.paramsGetQuestionss).then(function (res) {
+        _this3.questionsList = res.data.items;
+        _this3.total = res.data.total;
+        _this3.tempSelectedQuestions = babel_runtime_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()([], _this3.list);
+        if (_this3.list.length !== 0) {
+          _this3.list.forEach(function (item) {
+            _this3.questionsList.forEach(function (question) {
+              if (item.questions_id === question.questions_id) {
+                _this3.$nextTick(function () {
+                  _this3.$refs.quesitonsTable.toggleRowSelection(question, true);
+                });
+              }
+            });
+          });
+        }
+      }).catch(function () {});
+    },
+    getPapersList: function getPapersList() {
+      var _this4 = this;
+
+      Object(_api_papers__WEBPACK_IMPORTED_MODULE_4__["getPapersList"])({
+        project_id: this.selected_project_id
+      }).then(function (res) {
+        _this4.paperOptions = res.data.items;
+        if (_this4.paperOptions.length !== 0) {
+          _this4.paramsGetQuestions.paper_id = _this4.paperOptions[0].paper_id;
+          _this4.paramsGetQuestionss.question_bank_type_id = _this4.paperOptions[0].question_bank_type_id;
+          _this4.question_bank_type_id = _this4.paperOptions[0].question_bank_type_id;
+          _this4.getQuestions();
+        }
+      }).catch(function () {});
+    },
+    handleSelectionChange: function handleSelectionChange(arr) {
+      this.multipleSelection = arr;
+    },
+    onSearch: function onSearch() {
+      this.paramsGetQuestions.question_bank_type = this.tempFilterOptions.question_bank_type;
+      this.paramsGetQuestions.page = 1;
+      this.getQuestions();
+    },
+
+    // 提交表单
+    onSumbit: function onSumbit() {
+      var _this5 = this;
+
+      if (this.tempSelectedQuestions.length !== 0) {
+        this.isBtnQuesLoadingShow = true;
+        var params = {
+          project_id: this.selected_project_id,
+          paper_id: this.paramsGetQuestions.paper_id,
+          questions_id_list: this.tempSelectedQuestions.map(function (item) {
+            return item.questions_id;
+          })
+        };
+        Object(_api_questions__WEBPACK_IMPORTED_MODULE_6__["addQuestions"])(params).then(function () {
+          _this5.isBtnQuesLoadingShow = false;
+          _this5.isAddQuestionsShow = false;
+          _this5.$message({
+            message: '添加成功',
+            type: 'success'
+          });
+          _this5.getQuestions();
+        }).catch(function () {
+          _this5.isBtnQuesLoadingShow = false;
+        });
+      } else {
+        this.$message({
+          type: 'warning',
+          message: '至少选中一个问题！'
+        });
+      }
+    },
+    onAddManualSumbit: function onAddManualSumbit() {
+      var _this6 = this;
+
+      this.$refs.formQuestiondata.validate(function (valid) {
+        if (valid) {
+          _this6.isBtnAddLoadingShow = true;
+          var params = {
+            project_id: _this6.selected_project_id,
+            paper_id: _this6.paramsGetQuestions.paper_id,
+            count1: _this6.formdataQuestion.count1,
+            count0: _this6.formdataQuestion.count0
+          };
+          Object(_api_questions__WEBPACK_IMPORTED_MODULE_6__["addQuestions2"])(params).then(function () {
+            _this6.isDialogPapersShow = false;
+            _this6.getQuestions();
+            _this6.$message({
+              type: 'success',
+              message: '新建成功！'
+            });
+            _this6.isBtnAddLoadingShow = false;
+            _this6.isAddQuestionsRandomlyShow = false;
+            _this6.init();
+          }).catch(function (err) {
+            _this6.isBtnAddLoadingShow = false;
+            console.error(err);
+          });
+        }
+      });
+    },
+    closeDialogAddQuestions: function closeDialogAddQuestions() {
+      this.init();
+    },
+    init: function init() {
+      this.formdataQuestion.count0 = undefined;
+      this.formdataQuestion.count1 = undefined;
+    },
+    deleteQuestions: function deleteQuestions() {
+      var _this7 = this;
+
+      this.$confirm('确认删除选中的考题吗？', '提示', {
+        type: 'warning'
+      }).then(function () {
+        _this7.isListLoadingShow = true;
+        var deleteParam = {
+          question_id_list: _this7.multipleSelection.map(function (item) {
+            return item.question_id;
+          }).toString(),
+          project_id: _this7.selected_project_id
+        };
+        Object(_api_questions__WEBPACK_IMPORTED_MODULE_6__["deleteQuestions"])(deleteParam).then(function () {
+          _this7.$message({
+            type: 'success',
+            message: '删除成功'
+          });
+          _this7.isListLoadingShow = false;
+          _this7.getQuestions();
+        }).catch(function (err) {
+          console.error(err);
+          _this7.isListLoadingShow = false;
+        });
+      });
+    },
+    getQuestions: function getQuestions() {
+      var _this8 = this;
+
+      this.paramsGetQuestions.project_id = this.selected_project_id;
+      this.isListLoadingShow = true;
+      Object(_api_questions__WEBPACK_IMPORTED_MODULE_6__["getQuestions"])(this.paramsGetQuestions).then(function (res) {
+        _this8.isListLoadingShow = false;
+        _this8.total = res.data.total;
+        _this8.list = res.data.items;
+      }).catch(function (err) {
+        console.error(err);
+        _this8.isListLoadingShow = false;
+      });
+    },
+    formateTime: function formateTime(timpstamp) {
+      return Object(_utils_time__WEBPACK_IMPORTED_MODULE_2__["Formattimestamp"])(timpstamp);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/paper.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+/* harmony import */ var babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_questionbanktypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/questionbanktypes */ "./src/api/questionbanktypes.js");
+/* harmony import */ var _utils_time__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utils/time */ "./src/utils/time.js");
+/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Pagination */ "./src/components/Pagination/index.vue");
+/* harmony import */ var _api_papers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/api/papers */ "./src/api/papers.js");
+/* harmony import */ var _directive_waves__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/directive/waves */ "./src/directive/waves/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Pagination: _components_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  directives: {
+    waves: _directive_waves__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
+  data: function data() {
+    return {
+      groupRules: {
+        name: { required: true, message: '请填写考卷名称', trigger: 'blur' },
+        question_bank_type_id: [{ required: true, message: '请选择题库', trigger: 'change' }],
+        creator: { required: true, message: '请填写创建人', trigger: 'blur' }
+      },
+      isEdit: false,
+      isButtonLoadingShow: false,
+      list: [],
+      isDialogPapersShow: false,
+      isListLoadingShow: false,
+      multipleSelection: [],
+      questionbankOptions: [],
+      tempFilterOptions: {
+        question_bank_type: undefined
+      },
+      // 考卷总数
+      total: 0,
+      // 请求考卷列表信息参数
+      paramsGetPaper: {
+        project_id: undefined,
+        // page: 1,
+        // limit: 20,
+        question_bank_type_id: undefined
+      },
+      formdataPaper: {
+        creator: undefined,
+        project_id: undefined,
+        name: undefined,
+        question_bank_type_id: undefined
+      }
+    };
+  },
+
+  computed: babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])(['selected_project_id'])),
+  created: function created() {
+    this.getPaperList();
+    this.getQuesbankList();
+  },
+
+  methods: {
+    questionBankChange: function questionBankChange(val) {
+      if (val === '') {
+        this.paramsGetPaper.question_bank_type_id = undefined;
+      } else {
+        this.paramsGetPaper.question_bank_type_id = val;
+      }
+      this.getPaperList();
+    },
+    getQuesbankList: function getQuesbankList() {
+      var _this = this;
+
+      Object(_api_questionbanktypes__WEBPACK_IMPORTED_MODULE_1__["getQuesbankList"])({
+        project_id: this.selected_project_id
+      }).then(function (res) {
+        _this.questionbankOptions = res.data.items;
+      }).catch(function () {});
+    },
+    handleSelectionChange: function handleSelectionChange(arr) {
+      this.multipleSelection = arr;
+    },
+
+    // 提交表单
+    onSumbit: function onSumbit() {
+      var _this2 = this;
+
+      this.$refs.formdata.validate(function (valid) {
+        if (valid) {
+          if (_this2.isEdit) {
+            var params = {
+              paper_id: _this2.formdataPaper.paper_id,
+              question_bank_type_id: _this2.formdataPaper.question_bank_type_id,
+              project_id: _this2.selected_project_id,
+              name: _this2.formdataPaper.name
+              // creator: this.formdataPaper.creator
+            };
+            Object(_api_papers__WEBPACK_IMPORTED_MODULE_4__["updatePapers"])(params).then(function () {
+              _this2.isDialogPapersShow = false;
+              _this2.getPaperList();
+              _this2.$message({
+                type: 'success',
+                message: '编辑成功！'
+              });
+              _this2.init();
+            }).catch(function (err) {
+              console.error(err);
+            });
+          } else {
+            var _params = {
+              question_bank_type_id: _this2.formdataPaper.question_bank_type_id,
+              project_id: _this2.selected_project_id,
+              name: _this2.formdataPaper.name,
+              creator: _this2.formdataPaper.creator
+            };
+            _this2.formdataPaper.group_id = undefined;
+            Object(_api_papers__WEBPACK_IMPORTED_MODULE_4__["addPapers"])(_params).then(function () {
+              _this2.isDialogPapersShow = false;
+              _this2.getPaperList();
+              _this2.$message({
+                type: 'success',
+                message: '新建成功！'
+              });
+              _this2.init();
+            }).catch(function (err) {
+              console.error(err);
+            });
+          }
+        }
+      });
+    },
+    newPaper: function newPaper() {
+      this.isDialogPapersShow = true;
+    },
+    editPaper: function editPaper(info) {
+      this.isDialogPapersShow = true;
+      this.isEdit = true;
+      this.formdataPaper.name = info.paper_name;
+      this.formdataPaper.creator = info.creator;
+      this.formdataPaper.paper_id = info.paper_id;
+      this.formdataPaper.question_bank_type_id = info.question_bank_type_id;
+    },
+    closeDialogPaper: function closeDialogPaper() {
+      if (this.isEdit) {
+        if (this.$refs.formdata !== undefined) this.$refs.formdata.resetFields();
+        this.init();
+      } else {
+        if (this.$refs.formdata !== undefined) this.$refs.formdata.clearValidate();
+      }
+      this.isEdit = false;
+    },
+    init: function init() {
+      this.formdataPaper.question_bank_type_id = undefined;
+      this.formdataPaper.name = undefined;
+      this.formdataPaper.creator = undefined;
+    },
+    deletePapers: function deletePapers() {
+      var _this3 = this;
+
+      this.$confirm('确认删除选中的考卷吗？', '提示', {
+        type: 'warning'
+      }).then(function () {
+        _this3.isListLoadingShow = true;
+        var deleteParam = {
+          paper_id_list: _this3.multipleSelection.map(function (item) {
+            return item.paper_id;
+          }).toString(),
+          project_id: _this3.selected_project_id
+        };
+        Object(_api_papers__WEBPACK_IMPORTED_MODULE_4__["deletePapers"])(deleteParam).then(function () {
+          _this3.$message({
+            type: 'success',
+            message: '删除成功'
+          });
+          _this3.isListLoadingShow = false;
+          _this3.getPaperList();
+        }).catch(function (err) {
+          console.error(err);
+          _this3.isListLoadingShow = false;
+        });
+      });
+    },
+    getPaperList: function getPaperList() {
+      var _this4 = this;
+
+      this.paramsGetPaper.project_id = this.selected_project_id;
+      this.isListLoadingShow = true;
+      Object(_api_papers__WEBPACK_IMPORTED_MODULE_4__["getPapers"])(this.paramsGetPaper).then(function (res) {
+        _this4.isListLoadingShow = false;
+        _this4.total = res.data.total;
+        _this4.list = res.data.items;
+      }).catch(function (err) {
+        console.error(err);
+        _this4.isListLoadingShow = false;
+      });
+    },
+    formateTime: function formateTime(timpstamp) {
+      return Object(_utils_time__WEBPACK_IMPORTED_MODULE_2__["Formattimestamp"])(timpstamp);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/index.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_paper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/paper */ "./src/views/fireexam/exampaper/components/paper.vue");
+/* harmony import */ var _components_examquestion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/examquestion */ "./src/views/fireexam/exampaper/components/examquestion.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    paper: _components_paper__WEBPACK_IMPORTED_MODULE_0__["default"],
+    examquestion: _components_examquestion__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      activeName: 'paper'
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--11-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--11-2!./node_modules/sass-loader/lib/loader.js??ref--11-3!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".filter-title[data-v-64d32708] {\n  display: inline-block;\n  height: 12px;\n  margin-bottom: 20px;\n  color: #606266;\n  font-size: 12px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "app-wrapper" },
+    [
+      _c(
+        "div",
+        { staticClass: "filter-container" },
+        [
+          _c("span", { staticClass: "filter-title" }, [_vm._v("所属考卷")]),
+          _vm._v(" "),
+          _c(
+            "el-select",
+            {
+              staticClass: "filter-item",
+              attrs: { placeholder: "请选择考卷", filterable: "" },
+              on: { change: _vm.parperChange },
+              model: {
+                value: _vm.paramsGetQuestions.paper_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.paramsGetQuestions, "paper_id", $$v)
+                },
+                expression: "paramsGetQuestions.paper_id"
+              }
+            },
+            _vm._l(_vm.paperOptions, function(item) {
+              return _c("el-option", {
+                key: item.paper_id,
+                attrs: { label: item.paper_name, value: item.paper_id }
+              })
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              directives: [{ name: "waves", rawName: "v-waves" }],
+              staticClass: "filter-item",
+              staticStyle: { "margin-left": "10px" },
+              attrs: { type: "primary", icon: "el-icon-plus" },
+              on: { click: _vm.addPaperManually }
+            },
+            [_vm._v("手动添加")]
+          ),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              directives: [{ name: "waves", rawName: "v-waves" }],
+              staticClass: "filter-item",
+              staticStyle: { "margin-left": "10px" },
+              attrs: { type: "primary", icon: "el-icon-plus" },
+              on: { click: _vm.addPaperRandomly }
+            },
+            [_vm._v("随机添加")]
+          ),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              directives: [{ name: "waves", rawName: "v-waves" }],
+              staticClass: "filter-item",
+              attrs: {
+                disabled: _vm.multipleSelection.length === 0,
+                type: "danger",
+                icon: "el-icon-delete"
+              },
+              on: { click: _vm.deleteQuestions }
+            },
+            [_vm._v("删除")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        {
+          directives: [
+            {
+              name: "loading",
+              rawName: "v-loading",
+              value: _vm.isListLoadingShow,
+              expression: "isListLoadingShow"
+            }
+          ],
+          staticStyle: { width: "100%" },
+          attrs: {
+            data: _vm.list,
+            "element-loading-text": "Loading",
+            border: "",
+            fit: "",
+            "highlight-current-row": ""
+          },
+          on: { "selection-change": _vm.handleSelectionChange }
+        },
+        [
+          _c("el-table-column", {
+            attrs: { type: "selection", align: "center", width: "50" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "序号", align: "center", width: "70" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.$index + 1) + " ")])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "题目名称", align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("span", [_c("i", [_vm._v(_vm._s(scope.row.name))])])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "题目类型", align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("span", [
+                      _vm._v(
+                        _vm._s(_vm.question_type[scope.row.question_type_id])
+                      )
+                    ])
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            visible: _vm.isAddQuestionsShow,
+            "append-to-body": true,
+            "close-on-click-modal": false,
+            title: "选择题目"
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.isAddQuestionsShow = $event
+            },
+            close: _vm.closeDialogQuestions
+          }
+        },
+        [
+          _c(
+            "el-form",
+            {
+              ref: "formdata",
+              attrs: {
+                model: _vm.formdataQuestion,
+                "label-position": "left",
+                "label-width": "120px"
+              }
+            },
+            [
+              _c(
+                "el-select",
+                {
+                  staticClass: "filter-item",
+                  attrs: { placeholder: "请选择题目类型", clearable: "" },
+                  on: { change: _vm.questionTypeChange },
+                  model: {
+                    value: _vm.paramsGetQuestionss.question_type_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.paramsGetQuestionss, "question_type_id", $$v)
+                    },
+                    expression: "paramsGetQuestionss.question_type_id"
+                  }
+                },
+                _vm._l(_vm.questionTypeOptions, function(item) {
+                  return _c("el-option", {
+                    key: item.id,
+                    attrs: { label: item.name, value: item.id }
+                  })
+                })
+              ),
+              _vm._v(" "),
+              _c(
+                "el-table",
+                {
+                  directives: [
+                    {
+                      name: "loading",
+                      rawName: "v-loading",
+                      value: _vm.isListLoadingShow,
+                      expression: "isListLoadingShow"
+                    }
+                  ],
+                  ref: "quesitonsTable",
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    data: _vm.questionsList,
+                    "element-loading-text": "Loading",
+                    "row-key": "questions_id",
+                    border: "",
+                    fit: "",
+                    "highlight-current-row": ""
+                  },
+                  on: {
+                    select: _vm.questionSelect,
+                    "selection-change": _vm.questionSelectChange
+                  }
+                },
+                [
+                  _c("el-table-column", {
+                    attrs: {
+                      "reserve-selection": true,
+                      type: "selection",
+                      align: "center",
+                      width: "50"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: { label: "序号", align: "center", width: "70" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(scope) {
+                          return [
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  scope.$index +
+                                    (_vm.paramsGetQuestionss.page - 1) *
+                                      _vm.paramsGetQuestionss.limit +
+                                    1
+                                ) + " "
+                              )
+                            ])
+                          ]
+                        }
+                      }
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: { label: "题目名称", align: "center" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(scope) {
+                          return [
+                            _c("span", [
+                              _c("i", [_vm._v(_vm._s(scope.row.name))])
+                            ])
+                          ]
+                        }
+                      }
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: { label: "题目类型", align: "center" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(scope) {
+                          return [
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.question_type[scope.row.question_type_id]
+                                )
+                              )
+                            ])
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("pagination", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.total > 0,
+                    expression: "total>0"
+                  }
+                ],
+                attrs: {
+                  total: _vm.total,
+                  "page-sizes": [5],
+                  page: _vm.paramsGetQuestionss.page,
+                  limit: _vm.paramsGetQuestionss.limit
+                },
+                on: {
+                  "update:page": function($event) {
+                    _vm.$set(_vm.paramsGetQuestionss, "page", $event)
+                  },
+                  "update:limit": function($event) {
+                    _vm.$set(_vm.paramsGetQuestionss, "limit", $event)
+                  },
+                  pagination: _vm.getQuestionssList
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dialog-footer",
+              staticStyle: { "margin-right": "20px" },
+              attrs: { slot: "footer" },
+              slot: "footer"
+            },
+            [
+              _c(
+                "el-button",
+                {
+                  directives: [{ name: "waves", rawName: "v-waves" }],
+                  nativeOn: {
+                    click: function($event) {
+                      _vm.isAddQuestionsShow = false
+                    }
+                  }
+                },
+                [_vm._v("取消")]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  directives: [{ name: "waves", rawName: "v-waves" }],
+                  attrs: {
+                    loading: _vm.isBtnQuesLoadingShow,
+                    disabled: _vm.tempSelectedQuestions.length === 0,
+                    type: "primary"
+                  },
+                  nativeOn: {
+                    click: function($event) {
+                      return _vm.onSumbit($event)
+                    }
+                  }
+                },
+                [_vm._v("确定")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            visible: _vm.isAddQuestionsRandomlyShow,
+            "append-to-body": true,
+            "close-on-click-modal": false,
+            title: "随机添加考题"
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.isAddQuestionsRandomlyShow = $event
+            },
+            closed: _vm.closeDialogAddQuestions
+          }
+        },
+        [
+          _c(
+            "el-form",
+            {
+              ref: "formQuestiondata",
+              attrs: {
+                model: _vm.formdataQuestion,
+                rules: _vm.questionRules,
+                "label-width": "120px"
+              }
+            },
+            [
+              _c(
+                "el-form-item",
+                {
+                  staticClass: "dialog-form-item",
+                  attrs: { label: "选择题数量：", prop: "count0" }
+                },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.formdataQuestion.count0,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formdataQuestion, "count0", $$v)
+                      },
+                      expression: "formdataQuestion.count0"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                {
+                  staticClass: "dialog-form-item",
+                  attrs: { label: "判断题数量：", prop: "count1" }
+                },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.formdataQuestion.count1,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formdataQuestion, "count1", $$v)
+                      },
+                      expression: "formdataQuestion.count1"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dialog-footer",
+              staticStyle: { "margin-right": "20px" },
+              attrs: { slot: "footer" },
+              slot: "footer"
+            },
+            [
+              _c(
+                "el-button",
+                {
+                  directives: [{ name: "waves", rawName: "v-waves" }],
+                  nativeOn: {
+                    click: function($event) {
+                      _vm.isAddQuestionsShow = false
+                    }
+                  }
+                },
+                [_vm._v("取消")]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  directives: [{ name: "waves", rawName: "v-waves" }],
+                  attrs: { loading: _vm.isBtnAddLoadingShow, type: "primary" },
+                  nativeOn: {
+                    click: function($event) {
+                      return _vm.onAddManualSumbit($event)
+                    }
+                  }
+                },
+                [_vm._v("确定")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "app-wrapper" },
+    [
+      _c(
+        "div",
+        { staticClass: "filter-container" },
+        [
+          _c(
+            "el-select",
+            {
+              staticClass: "filter-item",
+              attrs: {
+                filterable: "",
+                placeholder: "请选择题库",
+                clearable: ""
+              },
+              on: { change: _vm.questionBankChange },
+              model: {
+                value: _vm.paramsGetPaper.question_bank_type_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.paramsGetPaper, "question_bank_type_id", $$v)
+                },
+                expression: "paramsGetPaper.question_bank_type_id"
+              }
+            },
+            _vm._l(_vm.questionbankOptions, function(item) {
+              return _c("el-option", {
+                key: item.question_bank_type_id,
+                attrs: {
+                  label: item.question_bank_type,
+                  value: item.question_bank_type_id
+                }
+              })
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              directives: [{ name: "waves", rawName: "v-waves" }],
+              staticClass: "filter-item",
+              staticStyle: { "margin-left": "10px" },
+              attrs: { type: "primary", icon: "el-icon-plus" },
+              on: { click: _vm.newPaper }
+            },
+            [_vm._v("新建")]
+          ),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              directives: [{ name: "waves", rawName: "v-waves" }],
+              staticClass: "filter-item",
+              attrs: {
+                disabled: _vm.multipleSelection.length === 0,
+                type: "danger",
+                icon: "el-icon-delete"
+              },
+              on: { click: _vm.deletePapers }
+            },
+            [_vm._v("删除")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-table",
+        {
+          directives: [
+            {
+              name: "loading",
+              rawName: "v-loading",
+              value: _vm.isListLoadingShow,
+              expression: "isListLoadingShow"
+            }
+          ],
+          staticStyle: { width: "100%" },
+          attrs: {
+            data: _vm.list,
+            "element-loading-text": "Loading",
+            border: "",
+            fit: "",
+            "highlight-current-row": ""
+          },
+          on: { "selection-change": _vm.handleSelectionChange }
+        },
+        [
+          _c("el-table-column", {
+            attrs: { type: "selection", align: "center", width: "50" }
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "序号", align: "center", width: "70" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.$index + 1) + " ")])]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "考卷名称", align: "center", width: "180" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c(
+                      "a",
+                      {
+                        staticStyle: { color: "#409EFF" },
+                        on: {
+                          click: function($event) {
+                            _vm.editPaper(scope.row)
+                          }
+                        }
+                      },
+                      [_c("i", [_vm._v(_vm._s(scope.row.paper_name))])]
+                    )
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "题库", align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [
+                    _c("span", [_vm._v(_vm._s(scope.row.question_bank_type))])
+                  ]
+                }
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("el-table-column", {
+            attrs: { label: "创建人", align: "center" },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(scope) {
+                  return [_c("span", [_vm._v(_vm._s(scope.row.creator))])]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            visible: _vm.isDialogPapersShow,
+            "append-to-body": true,
+            "close-on-click-modal": false,
+            title: _vm.isEdit ? "编辑考卷" : "新建考卷"
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.isDialogPapersShow = $event
+            },
+            closed: _vm.closeDialogPaper
+          }
+        },
+        [
+          _c(
+            "el-form",
+            {
+              ref: "formdata",
+              attrs: {
+                model: _vm.formdataPaper,
+                rules: _vm.groupRules,
+                "label-width": "120px"
+              }
+            },
+            [
+              _c(
+                "el-form-item",
+                {
+                  staticClass: "dialog-form-item",
+                  attrs: { label: "考卷名称：", prop: "name" }
+                },
+                [
+                  _c("el-input", {
+                    model: {
+                      value: _vm.formdataPaper.name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.formdataPaper, "name", $$v)
+                      },
+                      expression: "formdataPaper.name"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                {
+                  staticClass: "dialog-form-item",
+                  attrs: { label: "题库：", prop: "question_bank_type_id" }
+                },
+                [
+                  _c(
+                    "el-select",
+                    {
+                      staticClass: "filter-item",
+                      attrs: { placeholder: "请选择题库" },
+                      model: {
+                        value: _vm.formdataPaper.question_bank_type_id,
+                        callback: function($$v) {
+                          _vm.$set(
+                            _vm.formdataPaper,
+                            "question_bank_type_id",
+                            $$v
+                          )
+                        },
+                        expression: "formdataPaper.question_bank_type_id"
+                      }
+                    },
+                    _vm._l(_vm.questionbankOptions, function(item) {
+                      return _c("el-option", {
+                        key: item.question_bank_type_id,
+                        attrs: {
+                          label: item.question_bank_type,
+                          value: item.question_bank_type_id
+                        }
+                      })
+                    })
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              !_vm.isEdit
+                ? _c(
+                    "el-form-item",
+                    {
+                      staticClass: "dialog-form-item",
+                      attrs: { label: "创建人：", prop: "creator" }
+                    },
+                    [
+                      _c("el-input", {
+                        model: {
+                          value: _vm.formdataPaper.creator,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formdataPaper, "creator", $$v)
+                          },
+                          expression: "formdataPaper.creator"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dialog-footer",
+              staticStyle: { "margin-right": "20px" },
+              attrs: { slot: "footer" },
+              slot: "footer"
+            },
+            [
+              _c(
+                "el-button",
+                {
+                  directives: [{ name: "waves", rawName: "v-waves" }],
+                  nativeOn: {
+                    click: function($event) {
+                      _vm.isDialogPapersShow = false
+                    }
+                  }
+                },
+                [_vm._v("取消")]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  directives: [{ name: "waves", rawName: "v-waves" }],
+                  attrs: { loading: _vm.isButtonLoadingShow, type: "primary" },
+                  nativeOn: {
+                    click: function($event) {
+                      return _vm.onSumbit($event)
+                    }
+                  }
+                },
+                [_vm._v("确定")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "app-container" },
+    [
+      _c(
+        "el-tabs",
+        {
+          model: {
+            value: _vm.activeName,
+            callback: function($$v) {
+              _vm.activeName = $$v
+            },
+            expression: "activeName"
+          }
+        },
+        [
+          _c(
+            "el-tab-pane",
+            { attrs: { label: "消防考卷", name: "paper" } },
+            [_c("paper")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-tab-pane",
+            { attrs: { label: "消防考题", lazy: "", name: "examquestion" } },
+            [_c("examquestion")],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader??ref--11-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--11-2!./node_modules/sass-loader/lib/loader.js??ref--11-3!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--11-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--11-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("81f40b08", content, false, {});
+// Hot Module Replacement
+if(true) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept(/*! !../../../../../node_modules/css-loader??ref--11-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--11-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&", function() {
+     var newContent = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--11-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--11-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&");
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./paper.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("e4788cc6", content, false, {});
+// Hot Module Replacement
+if(true) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./paper.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&", function() {
+     var newContent = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./paper.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&");
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("565ecee8", content, false, {});
+// Hot Module Replacement
+if(true) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&", function() {
+     var newContent = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&");
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./src/api/papers.js":
+/*!***************************!*\
+  !*** ./src/api/papers.js ***!
+  \***************************/
+/*! exports provided: getPapers, getPapersList, addPapers, updatePapers, deletePapers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPapers", function() { return getPapers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPapersList", function() { return getPapersList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPapers", function() { return addPapers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePapers", function() { return updatePapers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePapers", function() { return deletePapers; });
+/* harmony import */ var _utils_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/request */ "./src/utils/request.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+// 获取考卷列表
+function getPapers(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/papers/index',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 获取考卷下拉列表
+function getPapersList(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/papers/index2',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+// 添加考卷
+function addPapers(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/papers/save',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 修改考卷
+function updatePapers(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/papers/update',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 删除考卷
+function deletePapers(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/papers/delete',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+/***/ }),
+
+/***/ "./src/api/questions.js":
+/*!******************************!*\
+  !*** ./src/api/questions.js ***!
+  \******************************/
+/*! exports provided: getQuestions, addQuestions, addQuestions2, deleteQuestions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQuestions", function() { return getQuestions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQuestions", function() { return addQuestions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQuestions2", function() { return addQuestions2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteQuestions", function() { return deleteQuestions; });
+/* harmony import */ var _utils_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/request */ "./src/utils/request.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+// 获取考题列表
+function getQuestions(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questions/index',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 添加考题
+function addQuestions(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questions/save',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 随机添加考题
+function addQuestions2(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questions/save2',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 删除考题
+function deleteQuestions(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questions/delete',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+/***/ }),
+
+/***/ "./src/api/questionss.js":
+/*!*******************************!*\
+  !*** ./src/api/questionss.js ***!
+  \*******************************/
+/*! exports provided: getQuestionss, getQuestionssList, addQuestionss, updateQuestionss, deleteQuestionss */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQuestionss", function() { return getQuestionss; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getQuestionssList", function() { return getQuestionssList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQuestionss", function() { return addQuestionss; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateQuestionss", function() { return updateQuestionss; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteQuestionss", function() { return deleteQuestionss; });
+/* harmony import */ var _utils_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/request */ "./src/utils/request.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+// 获取题目列表
+function getQuestionss(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questionss/index',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 获取题目列表（用于添加考题）
+function getQuestionssList(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questionss/index2',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 添加题目
+function addQuestionss(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questionss/save',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 修改题目
+function updateQuestionss(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questionss/update',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 删除题目
+function deleteQuestionss(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/questionss/delete',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/examquestion.vue":
+/*!******************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/examquestion.vue ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./examquestion.vue?vue&type=template&id=64d32708&scoped=true& */ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true&");
+/* harmony import */ var _examquestion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./examquestion.vue?vue&type=script&lang=js& */ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& */ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _examquestion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "64d32708",
+  null
+  
+)
+
+/* hot reload */
+if (true) {
+  var api = __webpack_require__(/*! ./node_modules/vue-hot-reload-api/dist/index.js */ "./node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js"))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('64d32708', component.options)
+    } else {
+      api.reload('64d32708', component.options)
+    }
+    module.hot.accept(/*! ./examquestion.vue?vue&type=template&id=64d32708&scoped=true& */ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true&", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./examquestion.vue?vue&type=template&id=64d32708&scoped=true& */ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true&");
+(function () {
+      api.rerender('64d32708', {
+        render: _examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+        staticRenderFns: _examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]
+      })
+    })(__WEBPACK_OUTDATED_DEPENDENCIES__); })
+  }
+}
+component.options.__file = "src\\views\\fireexam\\exampaper\\components\\examquestion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib!../../../../../node_modules/vue-loader/lib??vue-loader-options!./examquestion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&":
+/*!****************************************************************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& ***!
+  \****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-style-loader!../../../../../node_modules/css-loader??ref--11-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--11-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=style&index=0&id=64d32708&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_style_index_0_id_64d32708_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true&":
+/*!*************************************************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true& ***!
+  \*************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./examquestion.vue?vue&type=template&id=64d32708&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/examquestion.vue?vue&type=template&id=64d32708&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_examquestion_vue_vue_type_template_id_64d32708_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/paper.vue":
+/*!***********************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/paper.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paper.vue?vue&type=template&id=4d7fbba5& */ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5&");
+/* harmony import */ var _paper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./paper.vue?vue&type=script&lang=js& */ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./paper.vue?vue&type=style&index=0&lang=css& */ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _paper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (true) {
+  var api = __webpack_require__(/*! ./node_modules/vue-hot-reload-api/dist/index.js */ "./node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js"))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('4d7fbba5', component.options)
+    } else {
+      api.reload('4d7fbba5', component.options)
+    }
+    module.hot.accept(/*! ./paper.vue?vue&type=template&id=4d7fbba5& */ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5&", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paper.vue?vue&type=template&id=4d7fbba5& */ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5&");
+(function () {
+      api.rerender('4d7fbba5', {
+        render: _paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__["render"],
+        staticRenderFns: _paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]
+      })
+    })(__WEBPACK_OUTDATED_DEPENDENCIES__); })
+  }
+}
+component.options.__file = "src\\views\\fireexam\\exampaper\\components\\paper.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/paper.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib!../../../../../node_modules/vue-loader/lib??vue-loader-options!./paper.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-style-loader!../../../../../node_modules/css-loader??ref--7-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./paper.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5&":
+/*!******************************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./paper.vue?vue&type=template&id=4d7fbba5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/components/paper.vue?vue&type=template&id=4d7fbba5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_paper_vue_vue_type_template_id_4d7fbba5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/index.vue":
+/*!************************************************!*\
+  !*** ./src/views/fireexam/exampaper/index.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=e3302d20& */ "./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./src/views/fireexam/exampaper/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue?vue&type=style&index=0&lang=css& */ "./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (true) {
+  var api = __webpack_require__(/*! ./node_modules/vue-hot-reload-api/dist/index.js */ "./node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js"))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('e3302d20', component.options)
+    } else {
+      api.reload('e3302d20', component.options)
+    }
+    module.hot.accept(/*! ./index.vue?vue&type=template&id=e3302d20& */ "./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20&", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=e3302d20& */ "./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20&");
+(function () {
+      api.rerender('e3302d20', {
+        render: _index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__["render"],
+        staticRenderFns: _index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]
+      })
+    })(__WEBPACK_OUTDATED_DEPENDENCIES__); })
+  }
+}
+component.options.__file = "src\\views\\fireexam\\exampaper\\index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/index.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/index.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-style-loader!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/lib??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20&":
+/*!*******************************************************************************!*\
+  !*** ./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=e3302d20& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/fireexam/exampaper/index.vue?vue&type=template&id=e3302d20&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_e3302d20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=56.js.map

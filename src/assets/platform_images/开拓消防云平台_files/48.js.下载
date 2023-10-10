@@ -1,0 +1,1598 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[48],{
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/home/components/waterChart.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/views/home/components/waterChart.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var echarts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! echarts */ "./node_modules/echarts/index.js");
+/* harmony import */ var echarts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(echarts__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_tools__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/tools */ "./src/utils/tools.js");
+//
+//
+//
+//
+
+
+__webpack_require__(/*! echarts/theme/macarons */ "./node_modules/echarts/theme/macarons.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    chartData: {
+      type: Array,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      chart: null
+    };
+  },
+
+  watch: {
+    chartData: {
+      deep: true,
+      handler: function handler(val) {
+        this.setOptions(val);
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.initChart();
+    this.__resizeHandler = Object(_utils_tools__WEBPACK_IMPORTED_MODULE_1__["debounce"])(function () {
+      if (_this.chart) {
+        _this.chart.resize();
+      }
+    }, 100);
+    window.addEventListener('resize', this.__resizeHandler);
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (!this.chart) {
+      return;
+    }
+    window.removeEventListener('resize', this.__resizeHandler);
+    this.chart.dispose();
+    this.chart = null;
+  },
+
+  methods: {
+    setOptions: function setOptions(data) {
+      // const color_2 = ['#FC0C59', '#F7BA2A', '#1DBD6B', '#00CED1']
+      var normalper = data[0].per;
+      var chartData = [];
+      var color = data.map(function (item) {
+        return item.color;
+      });
+      data.forEach(function (v, i) {
+        chartData.push({
+          label: {
+            normal: {
+              show: false,
+              formatter: '{b}\n\n{d}%',
+              textStyle: {
+                fontSize: 12,
+                color: '#909399'
+              },
+              position: 'inner'
+            },
+            emphasis: {
+              show: false
+            }
+          },
+          value: v.value,
+          name: v.name
+        });
+      });
+      this.chart.setOption({
+        color: color,
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        graphic: [{ // 图形中间文字
+          type: 'text',
+          left: 'center',
+          top: '43%',
+          style: {
+            text: '' + (normalper === 100 ? '正常' : normalper + '%'),
+            textAlign: 'center',
+            fill: '#15E09B',
+            fontSize: 24
+          }
+        }],
+        series: [{
+          name: '\u7EDF\u8BA1',
+          type: 'pie',
+          animation: false,
+          center: ['50%', '50%'],
+          radius: ['85%', '100%'],
+          startAngle: 45,
+          data: chartData,
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(255, 255, 255,1)'
+            }
+          },
+          animationEasing: 'cubicInOut',
+          animationDuration: 2600
+        }]
+      });
+    },
+    initChart: function initChart() {
+      this.chart = echarts__WEBPACK_IMPORTED_MODULE_0___default.a.init(this.$el, 'macarons');
+      this.setOptions(this.chartData);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./src/views/home/index.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+/* harmony import */ var babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/project */ "./src/api/project.js");
+/* harmony import */ var _components_waterChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/waterChart */ "./src/views/home/components/waterChart.vue");
+/* harmony import */ var _components_SvgIcon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/SvgIcon */ "./src/components/SvgIcon/index.vue");
+/* harmony import */ var vue_count_to__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-count-to */ "./node_modules/vue-count-to/dist/vue-count-to.min.js");
+/* harmony import */ var vue_count_to__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_count_to__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    CountTo: vue_count_to__WEBPACK_IMPORTED_MODULE_4___default.a,
+    svgIcon: _components_SvgIcon__WEBPACK_IMPORTED_MODULE_3__["default"],
+    WaterChart: _components_waterChart__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      hightColor: '#E60012',
+      lowColor: '#E6A23C',
+      normalColor: '#15E09B',
+      water_charts: [{ value: 10, name: '过高报警' }, { value: 10, name: '过低报警' }, { value: 10, name: '正常' }],
+      navList: [{
+        label: '设备巡查',
+        count: 0,
+        path: '/patroltasks/devrecord'
+      }, {
+        label: '消防巡查',
+        count: 0,
+        path: '/securitytasks/devrecord'
+
+      }, {
+        label: '当月维保',
+        count: 0,
+        path: '/maintenancetasks/record'
+      }, {
+        label: '当月报修',
+        count: 0,
+        path: '/repair/repairrecord'
+      }],
+      alarmList: [{
+        label: '火警',
+        count: 0,
+        color: '#e60012',
+        alarm_type_id: 1
+      }, {
+        label: '监管',
+        count: 0,
+        color: '#ff00ff',
+        alarm_type_id: 4
+      }, {
+        label: '反馈',
+        count: 0,
+        color: '#ff7800',
+        alarm_type_id: 2
+      }, {
+        label: '故障',
+        count: 0,
+        color: '#fff100',
+        alarm_type_id: 6
+      }],
+      // 设备数量
+      device_count: 0,
+      // 人员数量
+      member_count: 0,
+
+      fireCount: [{ name: '火警', num: 0, color: '#F56C6C' }, { name: '故障', num: 0, color: '#E6A23C' }, { name: '其他', num: 0, color: '#409EFF' }],
+      water: [{ name: '正常', value: 0, alarm_type_id: 0, per: 0, color: '#15E09B' }, { name: '报警', value: 0, alarm_type_id: 1, per: 0, color: '#FCDE54' }],
+      waterLiner: [{ name: '正常', value: 0, per: 0, alarm_type_id: 0, color: '#15E09B' }, { name: '过低报警', value: 0, per: 0, alarm_type_id: 2, color: '#FCDE54' }, { name: '过高报警', value: 0, per: 0, alarm_type_id: 1, color: '#E60012' }],
+      watePressure: [{ name: '正常', value: 0, per: 0, alarm_type_id: 0, color: '#15E09B' }, { name: '过低报警', value: 0, per: 0, alarm_type_id: 2, color: '#FCDE54' }, { name: '过高报警', value: 0, per: 0, alarm_type_id: 1, color: '#E60012' }]
+    };
+  },
+
+  computed: babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['selected_project_id'])),
+  created: function created() {
+    this.getProjectCount();
+  },
+
+  methods: {
+    getPercentage: function getPercentage(num, total) {
+      if (total === 0) {
+        return 0;
+      } else {
+        var per = num / total;
+        if ([0, 1].includes(per)) {
+          return per * 100;
+        } else {
+          return (per * 100).toFixed(2);
+        }
+      }
+    },
+
+    // 跳转火灾报警系统统计页面
+    toPageDetailFas: function toPageDetailFas(aid) {
+      this.$router.push({
+        path: '/iot/fas',
+        query: {
+          alarm_type_id: aid
+        }
+      });
+    },
+
+    // 跳转水位/压统计页面
+    toPageWater: function toPageWater(aid, tid) {
+      this.$router.push({
+        path: '/iot/' + (tid === 101 ? 'waterLine' : 'waterPressure'),
+        query: {
+          alarm_type_id: aid
+        }
+      });
+    },
+
+    // 跳转水浸统计页面
+    toPageWater2: function toPageWater2(aid) {
+      this.$router.push({
+        path: '/iot/water2',
+        query: {
+          alarm_type_id: aid
+        }
+      });
+    },
+    getProjectCount: function getProjectCount() {
+      var _this = this;
+
+      Object(_api_project__WEBPACK_IMPORTED_MODULE_1__["getProjectCount"])({ project_id: this.selected_project_id }).then(function (res) {
+        var data = res.data;
+        _this.fireCount = [];
+        _this.waterLiner = [];
+        _this.watePressure = [];
+        _this.water = [];
+
+        _this.device_count = data.device_count;
+        _this.member_count = data.member_count;
+
+        // 导航
+        _this.navList[0].count = data.task_device_count;
+        _this.navList[1].count = data.task_device_count3;
+        _this.navList[2].count = data.taskmc_device_count;
+        _this.navList[3].count = data.taskmb_device_count;
+
+        // 火灾报警系统
+        _this.alarmList[0].count = data.fas_alarm_count;
+        _this.alarmList[1].count = data.fas_supervision_count;
+        _this.alarmList[2].count = data.fas_feedback_count;
+        _this.alarmList[3].count = data.fas_trouble_count;
+
+        // 水位
+        var waterlineTotal = data.water_hight_count + data.water_low_count + data.water_normal_count;
+        _this.waterLiner.push({ name: '正常', value: data.water_normal_count || 0, alarm_type_id: 0, per: _this.getPercentage(data.water_normal_count, waterlineTotal), color: '#15E09B' });
+        _this.waterLiner.push({ name: '过低报警', value: data.water_low_count || 0, alarm_type_id: 2, per: _this.getPercentage(data.water_low_count, waterlineTotal), color: '#FCDE54' });
+        _this.waterLiner.push({ name: '过高报警', value: data.water_hight_count || 0, alarm_type_id: 1, per: _this.getPercentage(data.water_hight_count, waterlineTotal), color: '#E60012' });
+
+        // 水压
+        var watepressureTotal = data.water_hight_count2 + data.water_low_count2 + data.water_normal_count2;
+        _this.watePressure.push({ name: '正常', value: data.water_normal_count2 || 0, alarm_type_id: 0, per: _this.getPercentage(data.water_normal_count2, watepressureTotal), color: '#15E09B' });
+        _this.watePressure.push({ name: '过低报警', value: data.water_low_count2 || 0, alarm_type_id: 2, per: _this.getPercentage(data.water_low_count2, watepressureTotal), color: '#FCDE54' });
+        _this.watePressure.push({ name: '过高报警', value: data.water_hight_count2 || 0, alarm_type_id: 1, per: _this.getPercentage(data.water_hight_count2, watepressureTotal), color: '#E60012' });
+
+        // 水浸
+        var waterTotal = data.water2_normal_count + data.water2_alarm_count;
+        _this.water.push({ name: '正常', value: data.water2_normal_count || 0, alarm_type_id: 0, color: '#15E09B', per: _this.getPercentage(data.water2_normal_count, waterTotal) });
+        _this.water.push({ name: '报警', value: data.water2_alarm_count || 0, alarm_type_id: 1, color: '#E60012', per: _this.getPercentage(data.water2_alarm_count, waterTotal) });
+      }).catch(function () {});
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--11-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--11-2!./node_modules/sass-loader/lib/loader.js??ref--11-3!./node_modules/vue-loader/lib??vue-loader-options!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".home-wrapper[data-v-5954443c] {\n  overflow: auto;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 20px;\n  height: calc(100vh - 50px);\n  background-color: #f0f2f5;\n  font-family: \"STHeiti\";\n}\n.home-wrapper .content-wrapper[data-v-5954443c] {\n    overflow: hidden;\n    -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n    position: relative;\n    background-color: white;\n    border-radius: 10px;\n}\n.home-wrapper .navbar[data-v-5954443c] {\n    -webkit-box-flex: 0;\n        -ms-flex: 0 0 127px;\n            flex: 0 0 127px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.home-wrapper .navbar .nav-item[data-v-5954443c] {\n      -webkit-box-flex: 1;\n          -ms-flex: 1;\n              flex: 1;\n      margin-right: 30px;\n      position: relative;\n      cursor: pointer;\n      padding: 15px;\n      width: 240px;\n      height: 127px;\n      border-radius: 5px;\n      background-repeat: no-repeat;\n      background-size: 100% 100%;\n      color: white;\n}\n.home-wrapper .navbar .nav-item[data-v-5954443c]:last-child {\n        margin-right: 0;\n}\n.home-wrapper .navbar .nav-item .icon[data-v-5954443c] {\n        position: absolute;\n        width: 80px;\n        height: 80px;\n        background-size: cover;\n        opacity: .6;\n        background-repeat: no-repeat;\n        top: 10px;\n        right: 10px;\n}\n.home-wrapper .navbar .nav-item .count[data-v-5954443c] {\n        margin-top: 28px;\n}\n.home-wrapper .navbar .nav-item .count .number[data-v-5954443c] {\n          font-size: 30px;\n}\n.home-wrapper .navbar .nav-item .title[data-v-5954443c] {\n        font-size: 14px;\n}\n.home-wrapper .home-middle[data-v-5954443c] {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n}\n.home-wrapper .home-middle .left[data-v-5954443c] {\n      padding: 15px;\n      -webkit-box-flex: 1;\n          -ms-flex: 1;\n              flex: 1;\n}\n.home-wrapper .home-middle .left .title[data-v-5954443c] {\n        font-size: 14px;\n}\n.home-wrapper .home-middle .left .content[data-v-5954443c] {\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        right: 0;\n        top: 0;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        padding: 20px;\n}\n.home-wrapper .home-middle .left .content .alarm-list[data-v-5954443c] {\n          width: 100%;\n          display: -webkit-box;\n          display: -ms-flexbox;\n          display: flex;\n}\n.home-wrapper .home-middle .left .content .alarm-list .item[data-v-5954443c] {\n            cursor: pointer;\n            -webkit-box-flex: 1;\n                -ms-flex: 1;\n                    flex: 1;\n            text-align: center;\n}\n.home-wrapper .home-middle .left .content .alarm-list .item .num[data-v-5954443c] {\n              position: relative;\n              font-size: 36px;\n              height: 90px;\n              line-height: 80px;\n}\n.home-wrapper .home-middle .left .content .alarm-list .item .num[data-v-5954443c]::after {\n                position: absolute;\n                top: 0;\n                height: 100%;\n                right: 0;\n                content: '';\n                width: 0;\n                border-right: solid rgba(180, 180, 180, 0.3) 1px;\n}\n.home-wrapper .home-middle .left .content .alarm-list .item .label[data-v-5954443c] {\n              font-size: 18px;\n              height: 25px;\n              line-height: 25px;\n}\n.home-wrapper .home-middle .left .content .alarm-list .item:last-child > .num[data-v-5954443c]::after {\n              border: none;\n}\n.home-wrapper .home-middle .middle[data-v-5954443c], .home-wrapper .home-middle .right[data-v-5954443c] {\n      cursor: pointer;\n}\n.home-wrapper .home-middle .middle .icon[data-v-5954443c], .home-wrapper .home-middle .right .icon[data-v-5954443c] {\n        position: absolute;\n        bottom: 0;\n        left: 0;\n        right: 0;\n        height: 168px;\n        background-repeat: no-repeat;\n        background-size: 100% 100%;\n        opacity: .6;\n}\n.home-wrapper .home-middle .middle[data-v-5954443c], .home-wrapper .home-middle .right[data-v-5954443c] {\n      -webkit-box-flex: 0;\n          -ms-flex: 0 0 160px;\n              flex: 0 0 160px;\n      background: -webkit-gradient(linear, left top, left bottom, from(#48d898), to(#00ffd8));\n      background: linear-gradient(#48d898, #00ffd8);\n      padding: 15px;\n      margin-left: 10px;\n      color: #fff;\n}\n.home-wrapper .home-middle .middle .number[data-v-5954443c], .home-wrapper .home-middle .right .number[data-v-5954443c] {\n        width: 100%;\n        margin-top: 30px;\n        text-align: center;\n        font-size: 36px;\n}\n.home-wrapper .home-bottom[data-v-5954443c] {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    margin-top: 10px;\n}\n.home-wrapper .home-bottom .left[data-v-5954443c], .home-wrapper .home-bottom .middle[data-v-5954443c] {\n      -webkit-box-flex: 1;\n          -ms-flex: 1;\n              flex: 1;\n}\n.home-wrapper .home-bottom .right[data-v-5954443c] {\n      -webkit-box-flex: 0;\n          -ms-flex: 0 0 330px;\n              flex: 0 0 330px;\n}\n.home-wrapper .home-bottom .left[data-v-5954443c], .home-wrapper .home-bottom .middle[data-v-5954443c], .home-wrapper .home-bottom .right[data-v-5954443c] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      padding: 15px;\n      margin-right: 10px;\n}\n.home-wrapper .home-bottom .left[data-v-5954443c]:last-child, .home-wrapper .home-bottom .middle[data-v-5954443c]:last-child, .home-wrapper .home-bottom .right[data-v-5954443c]:last-child {\n        margin-right: 0;\n}\n.home-wrapper .home-bottom .left .title[data-v-5954443c], .home-wrapper .home-bottom .middle .title[data-v-5954443c], .home-wrapper .home-bottom .right .title[data-v-5954443c] {\n        position: absolute;\n        top: 15px;\n        left: 15px;\n}\n.home-wrapper .home-bottom .left .chart-wrapper[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper[data-v-5954443c] {\n        height: 186px;\n        width: 100%;\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half[data-v-5954443c] {\n          position: relative;\n          -webkit-box-flex: 1;\n              -ms-flex: 1;\n                  flex: 1;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half[data-v-5954443c]::after, .home-wrapper .home-bottom .middle .chart-wrapper .half[data-v-5954443c]::after, .home-wrapper .home-bottom .right .chart-wrapper .half[data-v-5954443c]::after {\n            position: absolute;\n            top: 10%;\n            bottom: 10%;\n            right: 0;\n            content: '';\n            width: 0;\n            border-right: solid rgba(180, 180, 180, 0.3) 1px;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half[data-v-5954443c]:last-child::after, .home-wrapper .home-bottom .middle .chart-wrapper .half[data-v-5954443c]:last-child::after, .home-wrapper .home-bottom .right .chart-wrapper .half[data-v-5954443c]:last-child::after {\n            border: none;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .chart[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half .chart[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half .chart[data-v-5954443c] {\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            -webkit-transform: translate(-50%, -50%);\n                    transform: translate(-50%, -50%);\n            width: 110px;\n            height: 110px;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .data-wrapper[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half .data-wrapper[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half .data-wrapper[data-v-5954443c] {\n            padding: 10px;\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            width: 100%;\n            height: 100%;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .data-wrapper .data-item[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half .data-wrapper .data-item[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half .data-wrapper .data-item[data-v-5954443c] {\n              -webkit-box-flex: 1;\n                  -ms-flex: 1;\n                      flex: 1;\n              display: -webkit-box;\n              display: -ms-flexbox;\n              display: flex;\n              -webkit-box-orient: vertical;\n              -webkit-box-direction: normal;\n                  -ms-flex-direction: column;\n                      flex-direction: column;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .data-wrapper .data-item .item[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half .data-wrapper .data-item .item[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half .data-wrapper .data-item .item[data-v-5954443c] {\n                cursor: pointer;\n                display: -webkit-box;\n                display: -ms-flexbox;\n                display: flex;\n                -webkit-box-orient: vertical;\n                -webkit-box-direction: normal;\n                    -ms-flex-direction: column;\n                        flex-direction: column;\n                -webkit-box-pack: center;\n                    -ms-flex-pack: center;\n                        justify-content: center;\n                -webkit-box-flex: 1;\n                    -ms-flex: 1;\n                        flex: 1;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .data-wrapper .data-item .item[data-v-5954443c]:last-child, .home-wrapper .home-bottom .middle .chart-wrapper .half .data-wrapper .data-item .item[data-v-5954443c]:last-child, .home-wrapper .home-bottom .right .chart-wrapper .half .data-wrapper .data-item .item[data-v-5954443c]:last-child {\n                  margin-right: 0;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .data-wrapper .data-item .item .header .percentage[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half .data-wrapper .data-item .item .header .percentage[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half .data-wrapper .data-item .item .header .percentage[data-v-5954443c] {\n                  font-size: 12px;\n}\n.home-wrapper .home-bottom .left .chart-wrapper .half .data-wrapper .data-item .item .number[data-v-5954443c], .home-wrapper .home-bottom .middle .chart-wrapper .half .data-wrapper .data-item .item .number[data-v-5954443c], .home-wrapper .home-bottom .right .chart-wrapper .half .data-wrapper .data-item .item .number[data-v-5954443c] {\n                  color: #000;\n                  margin-top: 5px;\n                  font-size: 20px;\n                  font-weight: bold;\n}\n.home-wrapper .home-bottom .left .title[data-v-5954443c], .home-wrapper .home-bottom .middle .title[data-v-5954443c], .home-wrapper .home-bottom .right .title[data-v-5954443c] {\n        font-size: 14px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-count-to/dist/vue-count-to.min.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vue-count-to/dist/vue-count-to.min.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():undefined}(this,function(){return function(t){function e(n){if(i[n])return i[n].exports;var a=i[n]={i:n,l:!1,exports:{}};return t[n].call(a.exports,a,a.exports,e),a.l=!0,a.exports}var i={};return e.m=t,e.c=i,e.i=function(t){return t},e.d=function(t,i,n){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:n})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/dist/",e(e.s=2)}([function(t,e,i){var n=i(4)(i(1),i(5),null,null);t.exports=n.exports},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=i(3);e.default={props:{startVal:{type:Number,required:!1,default:0},endVal:{type:Number,required:!1,default:2017},duration:{type:Number,required:!1,default:3e3},autoplay:{type:Boolean,required:!1,default:!0},decimals:{type:Number,required:!1,default:0,validator:function(t){return t>=0}},decimal:{type:String,required:!1,default:"."},separator:{type:String,required:!1,default:","},prefix:{type:String,required:!1,default:""},suffix:{type:String,required:!1,default:""},useEasing:{type:Boolean,required:!1,default:!0},easingFn:{type:Function,default:function(t,e,i,n){return i*(1-Math.pow(2,-10*t/n))*1024/1023+e}}},data:function(){return{localStartVal:this.startVal,displayValue:this.formatNumber(this.startVal),printVal:null,paused:!1,localDuration:this.duration,startTime:null,timestamp:null,remaining:null,rAF:null}},computed:{countDown:function(){return this.startVal>this.endVal}},watch:{startVal:function(){this.autoplay&&this.start()},endVal:function(){this.autoplay&&this.start()}},mounted:function(){this.autoplay&&this.start(),this.$emit("mountedCallback")},methods:{start:function(){this.localStartVal=this.startVal,this.startTime=null,this.localDuration=this.duration,this.paused=!1,this.rAF=(0,n.requestAnimationFrame)(this.count)},pauseResume:function(){this.paused?(this.resume(),this.paused=!1):(this.pause(),this.paused=!0)},pause:function(){(0,n.cancelAnimationFrame)(this.rAF)},resume:function(){this.startTime=null,this.localDuration=+this.remaining,this.localStartVal=+this.printVal,(0,n.requestAnimationFrame)(this.count)},reset:function(){this.startTime=null,(0,n.cancelAnimationFrame)(this.rAF),this.displayValue=this.formatNumber(this.startVal)},count:function(t){this.startTime||(this.startTime=t),this.timestamp=t;var e=t-this.startTime;this.remaining=this.localDuration-e,this.useEasing?this.countDown?this.printVal=this.localStartVal-this.easingFn(e,0,this.localStartVal-this.endVal,this.localDuration):this.printVal=this.easingFn(e,this.localStartVal,this.endVal-this.localStartVal,this.localDuration):this.countDown?this.printVal=this.localStartVal-(this.localStartVal-this.endVal)*(e/this.localDuration):this.printVal=this.localStartVal+(this.localStartVal-this.startVal)*(e/this.localDuration),this.countDown?this.printVal=this.printVal<this.endVal?this.endVal:this.printVal:this.printVal=this.printVal>this.endVal?this.endVal:this.printVal,this.displayValue=this.formatNumber(this.printVal),e<this.localDuration?this.rAF=(0,n.requestAnimationFrame)(this.count):this.$emit("callback")},isNumber:function(t){return!isNaN(parseFloat(t))},formatNumber:function(t){t=t.toFixed(this.decimals),t+="";var e=t.split("."),i=e[0],n=e.length>1?this.decimal+e[1]:"",a=/(\d+)(\d{3})/;if(this.separator&&!this.isNumber(this.separator))for(;a.test(i);)i=i.replace(a,"$1"+this.separator+"$2");return this.prefix+i+n+this.suffix}},destroyed:function(){(0,n.cancelAnimationFrame)(this.rAF)}}},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=i(0),a=function(t){return t&&t.__esModule?t:{default:t}}(n);e.default=a.default,"undefined"!=typeof window&&window.Vue&&window.Vue.component("count-to",a.default)},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=0,a="webkit moz ms o".split(" "),r=void 0,o=void 0;if("undefined"==typeof window)e.requestAnimationFrame=r=function(){},e.cancelAnimationFrame=o=function(){};else{e.requestAnimationFrame=r=window.requestAnimationFrame,e.cancelAnimationFrame=o=window.cancelAnimationFrame;for(var s=void 0,u=0;u<a.length&&(!r||!o);u++)s=a[u],e.requestAnimationFrame=r=r||window[s+"RequestAnimationFrame"],e.cancelAnimationFrame=o=o||window[s+"CancelAnimationFrame"]||window[s+"CancelRequestAnimationFrame"];r&&o||(e.requestAnimationFrame=r=function(t){var e=(new Date).getTime(),i=Math.max(0,16-(e-n)),a=window.setTimeout(function(){t(e+i)},i);return n=e+i,a},e.cancelAnimationFrame=o=function(t){window.clearTimeout(t)})}e.requestAnimationFrame=r,e.cancelAnimationFrame=o},function(t,e){t.exports=function(t,e,i,n){var a,r=t=t||{},o=typeof t.default;"object"!==o&&"function"!==o||(a=t,r=t.default);var s="function"==typeof r?r.options:r;if(e&&(s.render=e.render,s.staticRenderFns=e.staticRenderFns),i&&(s._scopeId=i),n){var u=Object.create(s.computed||null);Object.keys(n).forEach(function(t){var e=n[t];u[t]=function(){return e}}),s.computed=u}return{esModule:a,exports:r,options:s}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement;return(t._self._c||e)("span",[t._v("\n  "+t._s(t.displayValue)+"\n")])},staticRenderFns:[]}}])});
+//# sourceMappingURL=vue-count-to.min.js.map
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticStyle: { width: "100%", height: "100%" } })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "home-wrapper" }, [
+    _c(
+      "div",
+      { staticClass: "navbar" },
+      _vm._l(_vm.navList, function(item, index) {
+        return _c(
+          "div",
+          {
+            key: index,
+            staticClass: "nav-item",
+            style: {
+              backgroundImage:
+                "url(" +
+                __webpack_require__("./src/assets/home_images sync recursive ^\\.\\/nav.*\\.png$")("./nav" + (index + 1) + ".png") +
+                ")"
+            },
+            on: {
+              click: function($event) {
+                _vm.$router.push({ path: _vm.redirect || item.path })
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "title" }, [_vm._v(_vm._s(item.label))]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "count" },
+              [
+                _c("count-to", {
+                  staticClass: "number",
+                  attrs: {
+                    "start-val": 0,
+                    "end-val": item.count,
+                    duration: 3600
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v("次")])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "icon",
+              style: {
+                backgroundImage:
+                  "url(" +
+                  __webpack_require__("./src/assets/home_images sync recursive ^\\.\\/.*\\.png$")("./" + index + ".png") +
+                  ")"
+              }
+            })
+          ]
+        )
+      })
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "home-middle" }, [
+      _c("div", { staticClass: "left content-wrapper" }, [
+        _c("div", { staticClass: "title" }, [
+          _vm._v("\n        火灾报警系统\n      ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "content" }, [
+          _c(
+            "div",
+            { staticClass: "alarm-list" },
+            _vm._l(_vm.alarmList, function(item, index) {
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticClass: "item",
+                  on: {
+                    click: function($event) {
+                      _vm.toPageDetailFas(item.alarm_type_id)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "num" },
+                    [
+                      _c("count-to", {
+                        style: { color: item.color },
+                        attrs: {
+                          "start-val": 0,
+                          "end-val": item.count,
+                          duration: 3600
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "label" },
+                    [
+                      _c("svgIcon", {
+                        style: { color: item.color, fontSize: "25px" },
+                        attrs: { "icon-class": "dot" }
+                      }),
+                      _vm._v(_vm._s(item.label) + "\n            ")
+                    ],
+                    1
+                  )
+                ]
+              )
+            })
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "middle content-wrapper",
+          on: {
+            click: function($event) {
+              _vm.$router.push("/devices/devedit")
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "title" }, [
+            _vm._v("\n        设备总数\n      ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "number" },
+            [
+              _c("count-to", {
+                staticClass: "number",
+                attrs: {
+                  "start-val": 0,
+                  "end-val": _vm.device_count,
+                  duration: 3600
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "icon",
+            style: {
+              backgroundImage:
+                "url(" + __webpack_require__(/*! ../../assets/home_images/device.png */ "./src/assets/home_images/device.png") + ")"
+            }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "right content-wrapper",
+          on: {
+            click: function($event) {
+              _vm.$router.push("/project/member")
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "title" }, [
+            _vm._v("\n        人员总数\n      ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "number" },
+            [
+              _c("count-to", {
+                staticClass: "number",
+                attrs: {
+                  "start-val": 0,
+                  "end-val": _vm.member_count,
+                  duration: 3600
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "icon",
+            style: {
+              backgroundImage:
+                "url(" + __webpack_require__(/*! ../../assets/home_images/member.png */ "./src/assets/home_images/member.png") + ")"
+            }
+          })
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "home-bottom" }, [
+      _c("div", { staticClass: "left content-wrapper" }, [
+        _c("div", { staticClass: "title" }, [
+          _vm._v("\n        水位监测\n      ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "chart-wrapper" }, [
+          _c("div", { staticClass: "half" }, [
+            _c(
+              "div",
+              { staticClass: "chart" },
+              [_c("WaterChart", { attrs: { "chart-data": _vm.waterLiner } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "half" }, [
+            _c("div", { staticClass: "data-wrapper" }, [
+              _c("div", { staticClass: "data-item" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.hightColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater(_vm.waterLiner[2].alarm_type_id, 101)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  过高"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.waterLiner[2].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.waterLiner[2].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.normalColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater(_vm.waterLiner[0].alarm_type_id, 101)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  正常"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.waterLiner[0].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.waterLiner[0].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "data-item" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.lowColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater(_vm.waterLiner[1].alarm_type_id, 101)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  过低"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.waterLiner[1].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.waterLiner[1].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "item" })
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "middle content-wrapper" }, [
+        _c("div", { staticClass: "title" }, [
+          _vm._v("\n        水压监测\n      ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "chart-wrapper" }, [
+          _c("div", { staticClass: "half" }, [
+            _c(
+              "div",
+              { staticClass: "chart" },
+              [_c("WaterChart", { attrs: { "chart-data": _vm.watePressure } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "half" }, [
+            _c("div", { staticClass: "data-wrapper" }, [
+              _c("div", { staticClass: "data-item" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.hightColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater(_vm.watePressure[2].alarm_type_id, 102)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  过高"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.watePressure[2].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.watePressure[2].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.normalColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater(_vm.watePressure[0].alarm_type_id, 102)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  正常"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.watePressure[0].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.watePressure[0].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "data-item" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.lowColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater(_vm.watePressure[1].alarm_type_id, 102)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  过低"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.watePressure[1].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.watePressure[1].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "item" })
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "right content-wrapper" }, [
+        _c("div", { staticClass: "title" }, [
+          _vm._v("\n        水浸监测\n      ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "chart-wrapper" }, [
+          _c("div", { staticClass: "half" }, [
+            _c(
+              "div",
+              { staticClass: "chart" },
+              [_c("WaterChart", { attrs: { "chart-data": _vm.water } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "half" }, [
+            _c("div", { staticClass: "data-wrapper" }, [
+              _c("div", { staticClass: "data-item" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.hightColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater2(_vm.water[1].alarm_type_id)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  报警"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.water[1].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.water[1].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "item",
+                    style: { color: _vm.normalColor },
+                    on: {
+                      click: function($event) {
+                        _vm.toPageWater2(_vm.water[0].alarm_type_id)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "header" }, [
+                      _vm._v("\n                  正常"),
+                      _c("span", { staticClass: "percentage" }, [
+                        _vm._v(_vm._s(_vm.water[0].per) + "%")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "number" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.water[0].value) +
+                          "项\n                "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/css-loader??ref--11-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--11-2!./node_modules/sass-loader/lib/loader.js??ref--11-3!./node_modules/vue-loader/lib??vue-loader-options!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--11-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--11-2!../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("1f6f26ba", content, false, {});
+// Hot Module Replacement
+if(true) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept(/*! !../../../node_modules/css-loader??ref--11-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--11-2!../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&", function() {
+     var newContent = __webpack_require__(/*! !../../../node_modules/css-loader??ref--11-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--11-2!../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&");
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./src/api/project.js":
+/*!****************************!*\
+  !*** ./src/api/project.js ***!
+  \****************************/
+/*! exports provided: getProjectCount, getProjectInfo, getSituation, editProjectInfo, getProjects, selectProject, createProject, projectSetting */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProjectCount", function() { return getProjectCount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProjectInfo", function() { return getProjectInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSituation", function() { return getSituation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editProjectInfo", function() { return editProjectInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProjects", function() { return getProjects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectProject", function() { return selectProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createProject", function() { return createProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "projectSetting", function() { return projectSetting; });
+/* harmony import */ var _utils_request__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/request */ "./src/utils/request.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+// 获取当前项目下的一些统计信息
+function getProjectCount(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/index/count',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 获取项目详情
+function getProjectInfo(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/projects/read',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 获取概况详情
+function getSituation(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/projects/read2',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+// 项目信息编辑
+function editProjectInfo(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/projects/update',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 获取项目列表
+function getProjects(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/projects/index',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 选择项目
+function selectProject(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/users/update',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 创建项目
+function createProject(params) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/projects/save',
+    method: 'post',
+    data: qs__WEBPACK_IMPORTED_MODULE_1___default.a.stringify(params)
+  });
+}
+
+// 项目设置(大屏设置)
+function projectSetting(data) {
+  return Object(_utils_request__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    url: '/projects/setting',
+    method: 'post',
+    data: data
+  });
+}
+
+/***/ }),
+
+/***/ "./src/assets/home_images sync recursive ^\\.\\/.*\\.png$":
+/*!***************************************************!*\
+  !*** ./src/assets/home_images sync ^\.\/.*\.png$ ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./0.png": "./src/assets/home_images/0.png",
+	"./1.png": "./src/assets/home_images/1.png",
+	"./2.png": "./src/assets/home_images/2.png",
+	"./3.png": "./src/assets/home_images/3.png",
+	"./device.png": "./src/assets/home_images/device.png",
+	"./member.png": "./src/assets/home_images/member.png",
+	"./nav1.png": "./src/assets/home_images/nav1.png",
+	"./nav2.png": "./src/assets/home_images/nav2.png",
+	"./nav3.png": "./src/assets/home_images/nav3.png",
+	"./nav4.png": "./src/assets/home_images/nav4.png"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) { // check for number or string
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return id;
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./src/assets/home_images sync recursive ^\\.\\/.*\\.png$";
+
+/***/ }),
+
+/***/ "./src/assets/home_images sync recursive ^\\.\\/nav.*\\.png$":
+/*!******************************************************!*\
+  !*** ./src/assets/home_images sync ^\.\/nav.*\.png$ ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./nav1.png": "./src/assets/home_images/nav1.png",
+	"./nav2.png": "./src/assets/home_images/nav2.png",
+	"./nav3.png": "./src/assets/home_images/nav3.png",
+	"./nav4.png": "./src/assets/home_images/nav4.png"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) { // check for number or string
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return id;
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./src/assets/home_images sync recursive ^\\.\\/nav.*\\.png$";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/0.png":
+/*!**************************************!*\
+  !*** ./src/assets/home_images/0.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/0.165c48b.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/1.png":
+/*!**************************************!*\
+  !*** ./src/assets/home_images/1.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/1.4d89826.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/2.png":
+/*!**************************************!*\
+  !*** ./src/assets/home_images/2.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/2.0eb6cc5.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/3.png":
+/*!**************************************!*\
+  !*** ./src/assets/home_images/3.png ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/3.58357b0.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/device.png":
+/*!*******************************************!*\
+  !*** ./src/assets/home_images/device.png ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/device.953fb16.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/member.png":
+/*!*******************************************!*\
+  !*** ./src/assets/home_images/member.png ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/member.512f33e.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/nav1.png":
+/*!*****************************************!*\
+  !*** ./src/assets/home_images/nav1.png ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/nav1.b2608ae.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/nav2.png":
+/*!*****************************************!*\
+  !*** ./src/assets/home_images/nav2.png ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/nav2.3b80ad1.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/nav3.png":
+/*!*****************************************!*\
+  !*** ./src/assets/home_images/nav3.png ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/nav3.fd35d07.png";
+
+/***/ }),
+
+/***/ "./src/assets/home_images/nav4.png":
+/*!*****************************************!*\
+  !*** ./src/assets/home_images/nav4.png ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/img/nav4.0ff62c2.png";
+
+/***/ }),
+
+/***/ "./src/views/home/components/waterChart.vue":
+/*!**************************************************!*\
+  !*** ./src/views/home/components/waterChart.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./waterChart.vue?vue&type=template&id=9c5d03ec& */ "./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec&");
+/* harmony import */ var _waterChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./waterChart.vue?vue&type=script&lang=js& */ "./src/views/home/components/waterChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _waterChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (true) {
+  var api = __webpack_require__(/*! ./node_modules/vue-hot-reload-api/dist/index.js */ "./node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js"))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('9c5d03ec', component.options)
+    } else {
+      api.reload('9c5d03ec', component.options)
+    }
+    module.hot.accept(/*! ./waterChart.vue?vue&type=template&id=9c5d03ec& */ "./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec&", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./waterChart.vue?vue&type=template&id=9c5d03ec& */ "./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec&");
+(function () {
+      api.rerender('9c5d03ec', {
+        render: _waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__["render"],
+        staticRenderFns: _waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]
+      })
+    })(__WEBPACK_OUTDATED_DEPENDENCIES__); })
+  }
+}
+component.options.__file = "src\\views\\home\\components\\waterChart.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/views/home/components/waterChart.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./src/views/home/components/waterChart.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_waterChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib!../../../../node_modules/vue-loader/lib??vue-loader-options!./waterChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/home/components/waterChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_waterChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec&":
+/*!*********************************************************************************!*\
+  !*** ./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./waterChart.vue?vue&type=template&id=9c5d03ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/components/waterChart.vue?vue&type=template&id=9c5d03ec&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waterChart_vue_vue_type_template_id_9c5d03ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./src/views/home/index.vue":
+/*!**********************************!*\
+  !*** ./src/views/home/index.vue ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=5954443c&scoped=true& */ "./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./src/views/home/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& */ "./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5954443c",
+  null
+  
+)
+
+/* hot reload */
+if (true) {
+  var api = __webpack_require__(/*! ./node_modules/vue-hot-reload-api/dist/index.js */ "./node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js"))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('5954443c', component.options)
+    } else {
+      api.reload('5954443c', component.options)
+    }
+    module.hot.accept(/*! ./index.vue?vue&type=template&id=5954443c&scoped=true& */ "./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true&", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ _index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=5954443c&scoped=true& */ "./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true&");
+(function () {
+      api.rerender('5954443c', {
+        render: _index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+        staticRenderFns: _index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]
+      })
+    })(__WEBPACK_OUTDATED_DEPENDENCIES__); })
+  }
+}
+component.options.__file = "src\\views\\home\\index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./src/views/home/index.vue?vue&type=script&lang=js&":
+/*!***********************************************************!*\
+  !*** ./src/views/home/index.vue?vue&type=script&lang=js& ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib!../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-style-loader!../../../node_modules/css-loader??ref--11-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--11-2!../../../node_modules/sass-loader/lib/loader.js??ref--11-3!../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=style&index=0&id=5954443c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_index_js_ref_11_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_11_2_node_modules_sass_loader_lib_loader_js_ref_11_3_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5954443c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true&":
+/*!*****************************************************************************!*\
+  !*** ./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true& ***!
+  \*****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=5954443c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/views/home/index.vue?vue&type=template&id=5954443c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_5954443c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=48.js.map
